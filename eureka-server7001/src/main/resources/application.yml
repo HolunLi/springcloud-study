@@ -1,0 +1,28 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: eureka-ser1
+
+#问题:微服务RPC远程服务调用最核心的是什么
+#高可用，试想你的注册中心只有一个only one，万一它出故障了，会导致整个为服务环境不可用。
+#解决办法：搭建Eureka注册中心集群，实现负载均衡+故障容错。
+#EurekaServer之间相互注册，相互守望
+eureka:
+  instance:
+    #eureka服务端的实例名称
+    hostname: eureka7001.com
+  server:
+    #关闭eureka自我保护机制（也可以不关）
+    enable-self-preservation: false
+  client:
+    #false表示不向注册中心注册自己。
+    register-with-eureka: false
+    #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    fetch-registry: false
+    service-url:
+      #集群就指向其它eureka server
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+      #单机就是7001自己
+      #defaultZone: http://eureka7001.com:7001/eureka/
