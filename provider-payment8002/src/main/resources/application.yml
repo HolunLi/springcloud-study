@@ -21,6 +21,9 @@ eureka:
       #defaultZone: http://localhost:7001/eureka
       #将payment服务在eureka集群中注册
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: payment8002
+    prefer-ip-address: true
 
 mybatis:
   #指明mapper映射文件的位置

@@ -15,6 +15,7 @@
         <module>eureka-server7002</module>
         <module>eureka-server7003</module>
         <module>provider-payment8002</module>
+        <module>provider-payment8004</module>
     </modules>
     <packaging>pom</packaging>  <!--父工程打包方式-->
 

@@ -14,8 +14,10 @@ eureka:
     #eureka服务端的实例名称
     hostname: eureka7001.com
   server:
-    #关闭eureka自我保护机制（也可以不关）
+    #关闭eureka自我保护机制（也可以不关），默认是开启的
     enable-self-preservation: false
+    #如果eureka服务器在2秒内，还没收到eureka客户端发送的心跳，就将该服务从注册列表中剔除（注销）
+    eviction-interval-timer-in-ms: 2000
   client:
     #false表示不向注册中心注册自己。
     register-with-eureka: false
@@ -23,6 +25,6 @@ eureka:
     fetch-registry: false
     service-url:
       #集群就指向其它eureka server
-      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+      #defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
       #单机就是7001自己
-      #defaultZone: http://eureka7001.com:7001/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/
