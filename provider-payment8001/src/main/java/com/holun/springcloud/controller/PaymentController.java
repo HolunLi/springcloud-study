@@ -11,6 +11,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * restful风格
@@ -54,13 +55,13 @@ public class PaymentController {
 
     @GetMapping(value = "/payment/discovery")
     public Object discovery() {
-        //获取在eureka注册中心，已注册的所有服务
+        //获取在eureka注册中心，注册的所有服务
         List<String> services = discoveryClient.getServices();
         for (String element : services) {
             log.info("*****element: "+element);
         }
 
-        //获取PAYMENT-SERVICE集群中包含的所有服务
+        //获取PAYMENT-SERVICE服务包含的实例，如果实例数量大于1，说明PAYMENT-SERVICE服务搭建了集群
         List<ServiceInstance> instances = discoveryClient.getInstances("PAYMENT-SERVICE");
         for (ServiceInstance instance : instances) {
             log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
@@ -68,4 +69,27 @@ public class PaymentController {
 
         return this.discoveryClient;
     }
+
+    /**
+     * 测试ribbon负载均衡
+     */
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB() {
+        return serverPort; //返回服务接口
+    }
+
+    /**
+     * 测试openfeign客户端的超时时间
+     */
+    @GetMapping(value = "/payment/feign/timeout")
+    public String paymentFeignTimeout() {
+        // 业务逻辑处理正确，但是需要耗费3秒钟
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
+    }
+
 }

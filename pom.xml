@@ -16,6 +16,12 @@
         <module>eureka-server7003</module>
         <module>provider-payment8002</module>
         <module>provider-payment8004</module>
+        <module>consumer-orderzk80</module>
+        <module>consumer-feign-order80</module>
+        <module>provider-hygtrix-payment8001</module>
+        <module>consumer-feign-hystrix-order80</module>
+        <module>cloud-gateway-gateway9527</module>
+        <module>cloud-config-center-3344</module>
     </modules>
     <packaging>pom</packaging>  <!--父工程打包方式-->
 
